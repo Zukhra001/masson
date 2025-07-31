@@ -24,7 +24,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative w-full mt-[50px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] min-h-[70vh] sm:min-h-[60vh] md:min-h-0">
-
       <img
         src="/masson.gif"
         alt="masons"

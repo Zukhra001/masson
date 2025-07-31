@@ -14,7 +14,7 @@ const LanguageSwitcher = () => {
   const { lang, setLang } = useLanguage();
 
   return (
-  <div className="flex items-center justify-center bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px] rounded-[24px]  px-4 md:px-3 h-[50px] md:h-[60px] text-[15px] md:text-[18px] font-semibold shadow-lg">
+  <div className="flex items-center justify-center  bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px] rounded-[34px]  px-4 md:px-3 h-[40px] md:h-[60px] text-[15px] md:text-[18px] font-semibold shadow-lg">
     <LayoutGroup>
       {languages.map((l, idx) => {
         const isActive = lang === l.code;
