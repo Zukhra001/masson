@@ -62,28 +62,30 @@ const FooterSection = () => {
 
   return (
     <section 
-      className="text-gray-400 py-20 px-6"
+      className="text-gray-400 py-6 px-3 sm:py-12 sm:px-6 md:py-20 md:px-8"
       style={{
         background: 'linear-gradient(to right, #0B1313, #091622)'
       }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 place-items-center lg:place-items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-10 lg:gap-16 place-items-center lg:place-items-start">
 
           <div className="flex justify-center lg:justify-start w-full">
-            <div className="w-52 h-20 relative">
+            <div className="w-28 h-12 sm:w-44 sm:h-18 relative">
               <Image
                 src="/logo.png"
                 alt="Логотип"
                 fill
+                sizes="(max-width: 640px) 6rem, (max-width: 768px) 8rem, (max-width: 1024px) 12rem, 18rem"
+
                 className="object-contain"
               />
             </div>
           </div>
 
           <div className="w-full text-center lg:text-left">
-            <h3 className="text-white text-lg font-bold mb-4">{t.structure}</h3>
-            <ul className="space-y-2 text-sm leading-relaxed">
+            <h3 className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">{t.structure}</h3>
+            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm leading-relaxed">
               <li>
                 <a href="https://masons.kz/goals" className="hover:text-white transition-colors duration-200">
                   {t.mission}
@@ -113,8 +115,8 @@ const FooterSection = () => {
           </div>
 
           <div className="w-full text-center lg:text-left">
-            <h3 className="text-white text-lg font-bold mb-4">{t.library}</h3>
-            <ul className="space-y-2 text-sm leading-relaxed">
+            <h3 className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">{t.library}</h3>
+            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm leading-relaxed">
               <li>
                 <a href="https://masons.kz/constitution" className="hover:text-white transition-colors duration-200">
                   {t.constitution}
@@ -139,8 +141,8 @@ const FooterSection = () => {
           </div>
 
           <div className="w-full text-center lg:text-left">
-            <h3 className="text-white text-lg font-bold mb-4">{t.candidate}</h3>
-            <ul className="space-y-2 text-sm leading-relaxed">
+            <h3 className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">{t.candidate}</h3>
+            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm leading-relaxed">
               <li>
                 <a href="https://masons.kz/faq" className="hover:text-white transition-colors duration-200">
                   {t.faq}

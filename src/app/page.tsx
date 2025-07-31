@@ -4,7 +4,7 @@ import MasonicSection from './components/MasonicSection';
 import ValuesSection from './components/ValuesSection';
 import HeroSection from './components/HeroSection';
 import FooterSection from "./components/FooterSection";
-import LodgesSection from './components/LodgesSection';
+import MainLodges from './components/MainLobges';
 
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
       <Info />
       <MasonicSection />
       <ValuesSection />
-      <LodgesSection />
+      <MainLodges />
       <FooterSection />
     </main>
   );

@@ -62,6 +62,7 @@ const ValuesSection = () => {
 
   return (
     <section className="relative bg-black py-20 px-6 z-30 overflow-hidden">
+
       <div className="absolute inset-0 z-0">
         <Image
           src="/fon.jpg"

@@ -44,7 +44,7 @@ const Header = () => {
   const navLinksWithoutLogo = navLinks.filter((l) => !l.isLogo);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-[rgba(4,4,4,0.8)] lg:bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px] border-b border-[#C1C9CC] h-[50px] sm:h-[60px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center">
+    <header className="w-full fixed top-0 left-0 z-50 bg-[rgba(4,4,4,0.8)] lg:bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px] border-b border-[#C1C9CC] h-[70px] sm:h-[60px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center">
       <nav className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-full">
 
         <div className="lg:hidden flex items-center justify-start">
@@ -94,28 +94,35 @@ const Header = () => {
           </div>
         </div>
         <button
-          className={`lg:hidden flex items-center justify-center z-50 p-2 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
-            open 
-              ? 'bg-[#1a1a2e] border-[#FFD700]/40' 
-              : 'bg-black/40 border-[#FFD700]/20'
-          }`}
-          onClick={() => setOpen(!open)}
-          aria-label="Открыть меню"
-        >
-          <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 relative flex flex-col justify-center items-center">
-            <span className={`block w-full h-0.5 bg-[#FFD700] transition-all duration-300 transform-gpu ${
-              open ? 'rotate-45 translate-y-0' : '-translate-y-2'
-            }`}></span>
-            <span className={`block w-full h-0.5 bg-[#FFD700] transition-all duration-300 ${
-              open ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-            }`}></span>
-            <span className={`block w-full h-0.5 bg-[#FFD700] transition-all duration-300 transform-gpu ${
-              open ? '-rotate-45 -translate-y-0.5' : 'translate-y-2'
-            }`}></span>
-          </div>
-        </button>
+  className={`lg:hidden flex items-center justify-center z-50 p-2 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
+    open
+      ? 'bg-[#1a1a2e] border-[#FFD700]/40'
+      : 'bg-black/40 border-[#FFD700]/20'
+  }`}
+  onClick={() => setOpen(!open)}
+  aria-label="Открыть меню"
+>
+  <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 relative">
+    <span
+      className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-transform duration-300 origin-center ${
+        open ? 'rotate-45' : '-translate-y-2'
+      }`}
+    />
+    <span
+      className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 ${
+        open ? 'opacity-0' : 'opacity-100'
+      }`}
+    />
+    <span
+      className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-transform duration-300 origin-center ${
+        open ? '-rotate-45' : 'translate-y-2'
+      }`}
+    />
+  </div>
+</button>
+
         <div
-          className={`fixed top-0 right-0 h-full w-72 sm:w-80 md:w-96 bg-[#1a1a2e] shadow-2xl z-40 transform transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 right-0  w-72 sm:w-80 md:w-76 bg-[#1d1d2b] rounded-2xl shadow-2xl z-40 transform transition-transform duration-300 ease-in-out ${
             open ? "translate-x-0" : "translate-x-full"
           } flex flex-col pt-20 sm:pt-24 md:pt-28 px-4 sm:px-6 md:px-8 border-l border-[#FFD700]/20`}
         >
@@ -130,18 +137,18 @@ const Header = () => {
             </svg>
           </button>
 
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
+          <div className="flex justify-center mb-8 sm:mb-20 md:mb-12 ">
             <Image
               src="/logo.png"
               alt="Логотип"
-              width={80}
+              width={100}
               height={51}
-              className="sm:w-[90px] sm:h-[57px] md:w-[100px] md:h-[64px]"
+              className="sm:w-[60px] sm:h-[87px] md:w-[100px] md:h-[64px]"
               priority
             />
           </div>
 
-          <div className="flex flex-col space-y-4 sm:space-y-5 md:space-y-6">
+          <div className="flex flex-col space-y-2 sm:space-y-5 md:space-y-6">
             {navLinksWithoutLogo.map((link, idx) =>
               link.isButton ? (
                 <button

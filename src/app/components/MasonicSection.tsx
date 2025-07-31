@@ -23,21 +23,22 @@ export default function MasonicSection() {
   const t = translations[lang];
 
   return (
-    <main className="relative w-full min-h-screen text-white overflow-hidden">
+    <main className="relative w-full min-h-[60vh] sm:min-h-[70vh] md:min-h-screen text-white overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src="/bg.jpg"
           alt="Фоновое изображение"
           fill
-          className="object-cover z-0"
-          style={{ filter: 'brightness(1.1) ' }}
+          className="object-cover object-center z-0 transition-all duration-500 ease-in-out"
+          style={{ filter: 'brightness(1.1)' }}
           priority
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 100vw"
         />
         <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black to-transparent"></div>
       </div>
-      <div className="relative z-20 flex items-end justify-center min-h-screen px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="relative z-20 flex items-end justify-center min-h-[60vh] sm:min-h-[70vh] md:min-h-screen px-4 sm:px-6 lg:px-8 pb-20">
         <div className="text-center max-w-3xl mx-auto relative">
-          <div className="absolute inset-2 -mx-20 sm:-mx-70 bg-black/78  z-0"></div>
+          <div className="absolute inset-2 -mx-20 sm:-mx-70 bg-black/78 z-0 rounded-md"></div>
           <div className="relative z-10 p-6">
             <h1 className="text-3xl md:text-5xl font-medium mb-4">{t.title}</h1>
             <p className="text-xs md:text-base leading-relaxed text-gray-400">
