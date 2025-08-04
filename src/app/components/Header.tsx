@@ -46,8 +46,7 @@ const Header = () => {
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-[rgba(4,4,4,0.8)] lg:bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px]  h-[60px] sm:h-[60px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center">
       <nav className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-full">
-
-        <div className="lg:hidden flex items-center justify-start">
+        <div className="lg:hidden w-full flex items-center justify-center relative">
           <div className="bg-black/30 backdrop-blur-sm rounded-xl px-2 py-1">
             <Image
               src="/logo.png"
@@ -58,8 +57,34 @@ const Header = () => {
               priority
             />
           </div>
+          <button
+            className={`absolute right-0 flex items-center justify-center z-50 p-2.5 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
+              open
+                ? 'bg-[#1a1a2e] border-[#FFD700]/60 shadow-lg shadow-[#FFD700]/20'
+                : 'bg-black/40 border-[#FFD700]/20 hover:border-[#FFD700]/40'
+            }`}
+            onClick={() => setOpen(!open)}
+            aria-label="Открыть меню"
+          >
+            <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 relative">
+              <span
+                className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 origin-center ${
+                  open ? 'rotate-45 translate-y-0' : '-translate-y-2'
+                }`}
+              />
+              <span
+                className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 ${
+                  open ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+                }`}
+              />
+              <span
+                className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 origin-center ${
+                  open ? '-rotate-45 translate-y-0' : 'translate-y-2'
+                }`}
+              />
+            </div>
+          </button>
         </div>
-
         <div className="hidden lg:flex w-full justify-center items-center">
           <div className="flex flex-wrap gap-2 lg:gap-4 xl:gap-8 2xl:gap-10 items-center justify-center w-full">
             {navLinks.map((link, idx) =>
@@ -94,55 +119,18 @@ const Header = () => {
             )}
           </div>
         </div>
-
-        <button
-          className={`lg:hidden flex items-center justify-center z-50 p-2.5 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
-            open
-              ? 'bg-[#1a1a2e] border-[#FFD700]/60 shadow-lg shadow-[#FFD700]/20'
-              : 'bg-black/40 border-[#FFD700]/20 hover:border-[#FFD700]/40'
-          }`}
-          onClick={() => setOpen(!open)}
-          aria-label="Открыть меню"
-        >
-          <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 relative">
-            <span
-              className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 origin-center ${
-                open ? 'rotate-45 translate-y-0' : '-translate-y-2'
-              }`}
-            />
-            <span
-              className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 ${
-                open ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-              }`}
-            />
-            <span
-              className={`absolute top-1/2 left-0 w-full h-0.5 bg-[#FFD700] transition-all duration-300 origin-center ${
-                open ? '-rotate-45 translate-y-0' : 'translate-y-2'
-              }`}
-            />
-          </div>
-        </button>
-
-        {/* Полноэкранное мобильное меню */}
         <div
           className={`fixed inset-0 w-full h-screen bg-[#0a0a1a] z-40 transform transition-all duration-500 ease-in-out lg:hidden overflow-hidden ${
             open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
           }`}
         >
-          {/* Основной фон с градиентом */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0f0f1f]"></div>
-          
-          {/* Дополнительный фоновый слой для контраста */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-          {/* Фоновые декоративные элементы */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-20 right-10 w-32 h-32 border border-[#FFD700]/10 rounded-full animate-pulse"></div>
             <div className="absolute bottom-40 left-10 w-24 h-24 border border-[#FFD700]/20 rounded-full animate-pulse delay-1000"></div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-[#FFD700]/5 rounded-full animate-pulse delay-500"></div>
           </div>
-
-          {/* Закрывающий крестик */}
           <button
             className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-white hover:text-[#FFD700] transition-all duration-300 bg-black/30 rounded-full hover:bg-black/50 hover:scale-110 z-50 backdrop-blur-sm border border-[#FFD700]/20"
             onClick={() => setOpen(false)}
@@ -153,11 +141,7 @@ const Header = () => {
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
-
-          {/* Контент меню - исправлено позиционирование */}
           <div className="flex flex-col h-full justify-center items-center px-6 py-20 sm:px-8 sm:py-16 relative z-10 safe-area-inset">
-            
-            {/* Логотип */}
             <div className={`mb-8 sm:mb-12 transform transition-all duration-700 delay-300 ${
               open ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'
             }`}>
@@ -172,8 +156,6 @@ const Header = () => {
                 />
               </div>
             </div>
-
-            {/* Навигационные ссылки - исправлены размеры и отступы */}
             <div className="flex flex-col space-y-4 sm:space-y-6 w-full max-w-xs sm:max-w-sm">
               {navLinksWithoutLogo.map((link, idx) => (
                 <div
@@ -208,8 +190,6 @@ const Header = () => {
                 </div>
               ))}
             </div>
-
-            {/* Декоративная линия внизу */}
             <div className={`mt-8 sm:mt-16 transform transition-all duration-700 delay-1000 ${
               open ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'
             }`}>
@@ -217,12 +197,8 @@ const Header = () => {
               <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-transparent via-[#FFD700] to-transparent mt-2 mx-auto"></div>
             </div>
           </div>
-
-          {/* Дополнительный световой эффект */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#FFD700]/5 via-transparent to-transparent pointer-events-none"></div>
         </div>
-
-        {/* Оверлей для закрытия меню */}
         {open && (
           <div
             className="fixed inset-0 bg-black/80 backdrop-blur-md z-30 lg:hidden"
