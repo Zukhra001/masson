@@ -76,7 +76,7 @@ const HeroSection = () => {
   }, [showFallback]);
 
   return (
-    <section className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] h-[80vh] sm:h-[85vh] md:min-h-0">
+    <section className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] h-[90vh] sm:h-[85vh] md:min-h-0">
       {!showFallback && (
         <video
           ref={videoRef}
