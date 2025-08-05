@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "@/app/globals.css";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -20,20 +20,66 @@ const texts = {
 
 const HeroSection = () => {
   const { lang } = useLanguage();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      // Принудительно запускаем видео
+      const playVideo = async () => {
+        try {
+          await video.play();
+        } catch (error) {
+          console.log('Autoplay prevented, waiting for user interaction');
+        }
+      };
+
+      // Запускаем при загрузке
+      const handleCanPlay = () => {
+        playVideo();
+      };
+
+      const handleInteraction = () => {
+        if (video.paused) {
+          playVideo();
+        }
+      };
+
+      video.addEventListener('canplaythrough', handleCanPlay);
+      document.addEventListener('touchstart', handleInteraction, { once: true });
+      document.addEventListener('click', handleInteraction, { once: true });
+
+      return () => {
+        if (video) {
+          video.removeEventListener('canplaythrough', handleCanPlay);
+        }
+        document.removeEventListener('touchstart', handleInteraction);
+        document.removeEventListener('click', handleInteraction);
+      };
+    }
+  }, []);
 
   return (
     <section className="relative w-full mt-[50px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] min-h-[85vh] sm:min-h-[80vh] md:min-h-0">
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
+        disablePictureInPicture
+        x-webkit-airplay="deny"
         className="w-full h-auto md:hidden block object-cover min-h-[85vh] sm:min-h-[80vh]"
         draggable={false}
+        style={{ 
+          objectFit: 'cover'
+        }}
       >
         <source src="/massongif.mp4" type="video/mp4" />
-        <img src="/masson.gif" alt="masons" className="w-full h-auto object-cover min-h-[85vh] sm:min-h-[80vh]" />
+        Your browser does not support the video tag.
       </video>
+      
       <img 
         src="/masson.gif" 
         alt="masons" 
