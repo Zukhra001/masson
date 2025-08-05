@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import Image from 'next/image';
 import { useLanguage } from "@/app/context/LanguageContext";
 
@@ -58,11 +59,10 @@ const translations = {
 
 const ValuesSection = () => {
   const { lang } = useLanguage();
-  const t = translations[lang];
+  const t = React.useMemo(() => translations[lang], [lang]);
 
   return (
     <section className="relative bg-black py-20 px-6 z-30 overflow-hidden">
-
       <div className="absolute inset-0 z-0">
         <Image
           src="/fon.jpg"
@@ -73,8 +73,9 @@ const ValuesSection = () => {
             filter: 'blur(2px) brightness(0.5) contrast(1.3)',
             transform: 'scale(2.9)',
           }}
+          sizes="100vw"
           quality={100}
-          priority={false}
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
@@ -102,11 +103,12 @@ const ValuesSection = () => {
                 transform: 'scale(1.3)',
                 filter: 'brightness(0.7)',
                 maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)'
+                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+                width: 'auto',
+                height: 'auto'
               }}
               quality={100}
-              priority
-              unoptimized
+              loading="lazy"
             />
             <div className="relative z-20 h-full flex items-end">
               <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[285px]">
@@ -119,6 +121,7 @@ const ValuesSection = () => {
               </div>
             </div>
           </div>
+          
           <div
             className="relative w-[344px] h-[259px] rounded overflow-hidden mx-auto flex flex-col justify-end"
             style={{
@@ -137,11 +140,12 @@ const ValuesSection = () => {
                 transform: 'scale(1)',
                 filter: 'brightness(0.7)',
                 maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)'
+                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+                width: 'auto',
+                height: 'auto'
               }}
               quality={100}
-              priority
-              unoptimized
+              loading="lazy"
             />
             <div className="relative z-20 h-full flex items-end">
               <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[385px]">
@@ -154,6 +158,7 @@ const ValuesSection = () => {
               </div>
             </div>
           </div>
+          
           <div
             className="relative w-[344px] h-[259px] rounded overflow-hidden mx-auto flex flex-col justify-end"
             style={{
@@ -172,11 +177,12 @@ const ValuesSection = () => {
                 transform: 'scale(1.4)',
                 filter: 'brightness(0.7)',
                 maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)'
+                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+                width: 'auto',
+                height: 'auto'
               }}
               quality={100}
-              priority
-              unoptimized
+              loading="lazy"
             />
             <div className="relative z-20 h-full flex items-end">
               <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[385px]">

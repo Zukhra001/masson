@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
 
@@ -25,7 +26,7 @@ const translations = {
 
 export default function Info() {
   const { lang } = useLanguage();
-  const t = translations[lang];
+  const t = React.useMemo(() => translations[lang], [lang]);
 
   return (
     <section className="w-full relative flex items-end min-h-[600px] md:aspect-[16/12] overflow-hidden rounded-[40px] sm:rounded-[80px]">
@@ -36,6 +37,7 @@ export default function Info() {
           fill
           priority
           className="object-cover w-full h-full"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/40 to-transparent rounded-[40px] sm:rounded-[80px]" />
       </div>

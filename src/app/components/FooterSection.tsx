@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import Image from 'next/image';
 import { useLanguage } from "@/app/context/LanguageContext";
 
@@ -58,7 +59,7 @@ const translations = {
 
 const FooterSection = () => {
   const { lang } = useLanguage();
-  const t = translations[lang];
+  const t = React.useMemo(() => translations[lang], [lang]);
 
   return (
     <section 
@@ -77,8 +78,8 @@ const FooterSection = () => {
                 alt="Логотип"
                 fill
                 sizes="(max-width: 640px) 6rem, (max-width: 768px) 8rem, (max-width: 1024px) 12rem, 18rem"
-
                 className="object-contain"
+                loading="lazy"
               />
             </div>
           </div>

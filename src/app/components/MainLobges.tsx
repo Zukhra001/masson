@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 const texts = {
@@ -126,18 +127,21 @@ const lodges = [
   },
 ];
 
-export default function MainLobges() {
+export default function MainLodges() {
   const { lang } = useLanguage();
-  const currentTexts = texts[lang];
+  const currentTexts = React.useMemo(() => texts[lang], [lang]);
 
   return (
     <div className="relative">
       <section className="relative w-full h-[480px] sm:h-[600px] md:h-[700px] lg:h-screen bg-blue-700 text-white overflow-hidden rounded-[20px] sm:rounded-[40px] lg:rounded-[80px]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="/sobr2.jpg"
             alt="Freemasons meeting"
-            className="w-full h-full object-cover object-center filter grayscale brightness-125 contrast-75"
+            fill
+            priority
+            className="object-cover object-center filter grayscale brightness-125 contrast-75"
+            sizes="100vw"
           />
           <div
             className="absolute inset-0 blur-sm opacity-40"
@@ -185,17 +189,19 @@ export default function MainLobges() {
           </div>
         </div>
       </section>
+      
       <div
         className="relative z-0 -mt-20 sm:-mt-32 md:-mt-40 pt-20 sm:pt-32 md:pt-40 min-h-screen p-4 sm:p-6 md:p-8"
         style={{
           background: `linear-gradient(to bottom, rgba(17, 24, 39, 0.7), rgba(0, 0, 0, 0.7))`,
         }}
       >
-        <div className="absolute inset-0 z-0  ">
-          <img
+        <div className="absolute inset-0 z-0">
+          <Image
             src="/sobr4.jpg"
             alt="Background"
-            className="w-full h-full object-cover filter blur-xl brightness-200 opacity-20"
+            fill
+            className="object-cover filter blur-xl brightness-200 opacity-20"
             style={{
               transform: "scaleX(-1)",
               WebkitMaskImage: "linear-gradient(to top, black 80%, transparent 100%)",
@@ -205,6 +211,8 @@ export default function MainLobges() {
               WebkitMaskRepeat: "no-repeat",
               maskRepeat: "no-repeat",
             }}
+            sizes="100vw"
+            loading="lazy"
           />
           <div
             className="absolute inset-0 blur-sm opacity-10"
@@ -221,10 +229,13 @@ export default function MainLobges() {
               background: "radial-gradient(circle at center bottom, #0A141A 0%, #2A251C 50%, #1A1611 100%)",
             }}
           >
-            <img
+            <Image
               src="/logo.png"
               alt={currentTexts.grandLodgeTitle}
+              width={288}
+              height={176}
               className="rounded-full w-16 h-10 sm:w-24 md:w-32 sm:h-20 lg:w-40 lg:h-24 xl:w-72 xl:h-44"
+              loading="lazy"
             />
             <div className="text-center sm:text-left">
               <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-white">
@@ -235,6 +246,7 @@ export default function MainLobges() {
               </p>
             </div>
           </div>
+          
           <svg
             className="absolute top-32 sm:top-40 md:top-48 lg:top-52 xl:top-56 left-1/2 transform -translate-x-1/2 z-10 hidden lg:block"
             width="min(100vw, 1528px)"
@@ -260,6 +272,7 @@ export default function MainLobges() {
             <path d="M 1064 90 L 1064 120" className="connection-line" />
             <path d="M 1380 90 L 1380 120" className="connection-line" />
           </svg>
+          
           <div className="flex justify-center mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
             <div className="hidden xl:block w-full max-w-7xl">
               <div className="flex justify-between gap-3">
@@ -273,10 +286,14 @@ export default function MainLobges() {
                     }}
                   >
                     <div className="w-full h-[180px] flex justify-center items-center mb-10">
-                      <img
+                      <Image
                         src={lodge.img}
                         alt={currentTexts.lodges[idx].title}
+                        width={113}
+                        height={180}
                         className="object-contain max-w-[113px] max-h-[180px]"
+                        style={{ width: "auto", height: "auto" }}
+                        loading="lazy"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between text-center">
@@ -299,6 +316,7 @@ export default function MainLobges() {
                 ))}
               </div>
             </div>
+            
             <div className="hidden md:grid xl:hidden grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
               {lodges.slice(0, 5).map((lodge, idx) => (
                 <div
@@ -310,10 +328,14 @@ export default function MainLobges() {
                   }}
                 >
                   <div className="w-full h-[140px] flex justify-center items-center mb-6">
-                    <img
+                    <Image
                       src={lodge.img}
                       alt={currentTexts.lodges[idx].title}
+                      width={90}
+                      height={140}
                       className="object-contain max-w-[90px] max-h-[140px]"
+                      style={{ width: "auto", height: "auto" }}
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex-1 flex flex-col justify-between text-center">
@@ -335,6 +357,7 @@ export default function MainLobges() {
                 </div>
               ))}
             </div>
+            
             <div className="grid md:hidden grid-cols-1 gap-4 max-w-sm mx-auto">
               {lodges.slice(0, 5).map((lodge, idx) => (
                 <div
@@ -346,10 +369,14 @@ export default function MainLobges() {
                   }}
                 >
                   <div className="flex-shrink-0 w-[60px] h-[80px] flex justify-center items-center">
-                    <img
+                    <Image
                       src={lodge.img}
                       alt={currentTexts.lodges[idx].title}
+                      width={50}
+                      height={80}
                       className="object-contain max-w-[50px] max-h-[80px]"
+                      style={{ width: "auto", height: "auto" }}
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex-1 text-left">
