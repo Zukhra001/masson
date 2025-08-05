@@ -44,7 +44,7 @@ const Header = () => {
   const navLinksWithoutLogo = navLinks.filter((l) => !l.isLogo);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px] h-[70px] sm:h-[75px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center">
+    <header className="w-full fixed top-0 left-0 z-50 h-[70px] sm:h-[75px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center bg-[linear-gradient(to_right,rgba(11,19,19,0.6),rgba(9,22,34,0.6))] bg-[length:100%_100%] bg-no-repeat backdrop-blur-xl sm:backdrop-blur-[75px]">
       <nav className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-full">
         <div className="lg:hidden w-full flex items-center justify-between relative">
           <div className="flex items-center gap-3">
