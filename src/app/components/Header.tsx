@@ -40,25 +40,33 @@ const navLinks = [
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const { lang } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const navLinksWithoutLogo = navLinks.filter((l) => !l.isLogo);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-[rgba(4,4,4,0.8)] lg:bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px]  h-[60px] sm:h-[60px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center">
+    <header className="w-full fixed top-0 left-0 z-50 bg-[rgba(4,4,4,0.1)] backdrop-blur-[75px] h-[70px] sm:h-[75px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center">
       <nav className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-full">
-        <div className="lg:hidden w-full flex items-center justify-center relative">
-          <div className="bg-black/30 backdrop-blur-sm rounded-xl px-2 py-1">
+        <div className="lg:hidden w-full flex items-center justify-between relative">
+          <div className="flex items-center gap-3">
             <Image
               src="/logo.png"
               alt="Логотип"
-              width={60}
-              height={38}
-              className="sm:w-[70px] sm:h-[44px] md:w-[80px] md:h-[51px]"
+              width={70}
+              height={44}
+              className="w-[70px] h-[44px] sm:w-[80px] sm:h-[51px] md:w-[90px] md:h-[58px]"
               priority
             />
+            <div className="flex flex-col">
+              <span className="text-[#FFD700] text-sm sm:text-base font-semibold leading-tight">
+                Великая Ложа
+              </span>
+              <span className="text-white text-xs sm:text-sm font-light leading-tight">
+                Казахстана
+              </span>
+            </div>
           </div>
           <button
-            className={`absolute right-0 flex items-center justify-center z-50 p-2.5 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
+            className={`flex items-center justify-center z-50 p-2.5 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
               open
                 ? 'bg-[#1a1a2e] border-[#FFD700]/60 shadow-lg shadow-[#FFD700]/20'
                 : 'bg-black/40 border-[#FFD700]/20 hover:border-[#FFD700]/40'
@@ -157,6 +165,32 @@ const Header = () => {
               </div>
             </div>
             <div className="flex flex-col space-y-4 sm:space-y-6 w-full max-w-xs sm:max-w-sm">
+              <div className={`transform transition-all duration-500 ${
+                open 
+                  ? 'translate-y-0 opacity-100' 
+                  : 'translate-y-8 opacity-0'
+              }`}
+              style={{ transitionDelay: '400ms' }}>
+                <div className="flex items-center justify-center bg-[rgba(4,4,4,0.3)] backdrop-blur-sm rounded-2xl p-2 border border-[#FFD700]/20">
+                  <div className="flex gap-1">
+                    {['ru', 'en', 'kz'].map((langCode) => (
+                      <button
+                        key={langCode}
+                        onClick={() => {
+                          setLang(langCode as "ru" | "en" | "kz");
+                        }}
+                        className={`px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                          lang === langCode
+                            ? 'bg-[#FFD700] text-black shadow-lg'
+                            : 'text-white/70 hover:text-[#FFD700] hover:bg-white/10'
+                        }`}
+                      >
+                        {langCode === 'ru' ? 'Рус' : langCode === 'en' ? 'Eng' : 'Қаз'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
               {navLinksWithoutLogo.map((link, idx) => (
                 <div
                   key={idx}
@@ -165,7 +199,7 @@ const Header = () => {
                       ? 'translate-y-0 opacity-100' 
                       : 'translate-y-8 opacity-0'
                   }`}
-                  style={{ transitionDelay: `${400 + idx * 100}ms` }}
+                  style={{ transitionDelay: `${500 + idx * 100}ms` }}
                 >
                   {link.isButton ? (
                     <button
