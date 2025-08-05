@@ -76,7 +76,7 @@ const HeroSection = () => {
   }, [showFallback]);
 
   return (
-    <section className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] min-h-[70vh] sm:min-h-[75vh] md:min-h-0">
+    <section className="relative w-full mt-[25px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] min-h-[55vh] sm:min-h-[60vh] md:min-h-0">
       {!showFallback && (
         <video
           ref={videoRef}
@@ -85,7 +85,7 @@ const HeroSection = () => {
           loop
           playsInline
           preload="metadata"
-          className="w-full h-auto md:hidden block object-cover min-h-[70vh] sm:min-h-[75vh]"
+          className="w-full h-auto md:hidden block object-cover min-h-[55vh] sm:min-h-[60vh]"
           draggable={false}
           style={{ 
             objectFit: 'cover'
@@ -98,7 +98,7 @@ const HeroSection = () => {
         <img 
           src="/masson.gif" 
           alt="masons" 
-          className="w-full h-auto md:hidden block object-cover min-h-[70vh] sm:min-h-[75vh]" 
+          className="w-full h-auto md:hidden block object-cover min-h-[55vh] sm:min-h-[60vh]" 
           draggable={false}
         />
       )}
