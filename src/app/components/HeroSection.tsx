@@ -76,7 +76,7 @@ const HeroSection = () => {
   }, [showFallback]);
 
   return (
-    <section className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] h-[90vh] sm:h-[85vh] md:min-h-0">
+    <section className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] h-[90vh] sm:h-[85vh] md:h-[95vh] lg:h-[95vh] xl:h-[95vh]">
       {!showFallback && (
         <video
           ref={videoRef}
@@ -105,7 +105,7 @@ const HeroSection = () => {
       <img 
         src="/masson.gif" 
         alt="masons" 
-        className="w-full h-auto md:h-full hidden md:block object-cover md:min-h-0" 
+        className="w-full h-full hidden md:block object-cover" 
         draggable={false} 
       />
       

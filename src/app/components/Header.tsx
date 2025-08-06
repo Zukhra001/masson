@@ -50,10 +50,10 @@ const Header = () => {
           <div className="absolute left-0 top-1/2 transform -translate-y-1/2">
             <div className="flex flex-col text-left">
               <span className="text-[#FFD700] text-sm sm:text-base font-semibold leading-tight">
-                Великая Ложа
+                {lang === 'ru' ? 'Великая Ложа' : lang === 'en' ? 'Grand Lodge' : 'Қазақстанның'}
               </span>
               <span className="text-white text-xs sm:text-sm font-light leading-tight">
-                Казахстана
+                {lang === 'ru' ? 'Казахстана' : lang === 'en' ? 'of Kazakhstan' : 'Ұлы Ложасы'}
               </span>
             </div>
           </div>
