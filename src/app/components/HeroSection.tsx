@@ -131,6 +131,7 @@ const HeroSection = () => {
           loop
           playsInline
           preload="auto"
+          poster="/masson.gif"
           className="w-full h-full md:hidden block object-cover"
           draggable={false}
           style={{ 
