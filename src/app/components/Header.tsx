@@ -46,17 +46,9 @@ const Header = () => {
   return (
     <header className="w-full fixed top-0 left-0 z-50 h-[70px] sm:h-[75px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center bg-[linear-gradient(to_right,rgba(11,19,19,0.6),rgba(9,22,34,0.6))] bg-[length:100%_100%] bg-no-repeat backdrop-blur-xl sm:backdrop-blur-[75px]">
       <nav className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-full">
-        <div className="lg:hidden w-full flex items-center justify-between relative">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="Логотип"
-              width={70}
-              height={44}
-              className="w-[70px] h-[44px] sm:w-[80px] sm:h-[51px] md:w-[90px] md:h-[58px]"
-              priority
-            />
-            <div className="flex flex-col">
+        <div className="lg:hidden w-full flex flex-col items-center justify-center relative">
+          <div className="absolute left-0 top-1/2 transform -translate-y-1/2">
+            <div className="flex flex-col text-left">
               <span className="text-[#FFD700] text-sm sm:text-base font-semibold leading-tight">
                 Великая Ложа
               </span>
@@ -65,8 +57,18 @@ const Header = () => {
               </span>
             </div>
           </div>
+          <div className="flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="Логотип"
+              width={70}
+              height={44}
+              className="w-[70px] h-[44px] sm:w-[80px] sm:h-[51px] md:w-[90px] md:h-[58px]"
+              priority
+            />
+          </div>
           <button
-            className={`flex items-center justify-center z-50 p-2.5 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
+            className={`absolute right-0 flex items-center justify-center z-50 p-2.5 backdrop-blur-sm rounded-xl border transition-all duration-300 ${
               open
                 ? 'bg-[#1a1a2e] border-[#FFD700]/60 shadow-lg shadow-[#FFD700]/20'
                 : 'bg-black/40 border-[#FFD700]/20 hover:border-[#FFD700]/40'
