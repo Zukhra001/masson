@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import "@/app/globals.css";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -22,58 +22,104 @@ const HeroSection = () => {
   const { lang } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showFallback, setShowFallback] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  const playVideo = useCallback(async () => {
+    const video = videoRef.current;
+    if (video && !showFallback) {
+      try {
+        video.currentTime = 0;
+        await video.play();
+        setVideoLoaded(true);
+      } catch (error) {
+        console.log('Video play failed:', error);
+        setShowFallback(true);
+      }
+    }
+  }, [showFallback]);
+
+  const handleVisibilityChange = useCallback(() => {
+    if (document.hidden) {
+      // Страница скрыта
+      return;
+    } else {
+      // Страница видима - перезапускаем видео
+      setTimeout(() => {
+        playVideo();
+      }, 100);
+    }
+  }, [playVideo]);
+
+  const handleScroll = useCallback(() => {
+    const video = videoRef.current;
+    if (video && videoLoaded && !showFallback) {
+      const rect = video.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isVisible && video.paused) {
+        playVideo();
+      }
+    }
+  }, [playVideo, videoLoaded, showFallback]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      const fallbackTimer = setTimeout(() => {
-        if (video.paused) {
+    if (!video) return;
+
+    let fallbackTimer: NodeJS.Timeout;
+
+    const handleLoadedData = () => {
+      setVideoLoaded(true);
+      playVideo();
+    };
+
+    const handleCanPlay = () => {
+      clearTimeout(fallbackTimer);
+      playVideo();
+    };
+
+    const handleError = () => {
+      console.log('Video error occurred');
+      setShowFallback(true);
+      clearTimeout(fallbackTimer);
+    };
+
+    const handleLoadStart = () => {
+      fallbackTimer = setTimeout(() => {
+        if (!videoLoaded) {
+          console.log('Video loading timeout');
           setShowFallback(true);
         }
-      }, 3000);
+      }, 5000);
+    };
 
-      const playVideo = async () => {
-        try {
-          await video.play();
-          clearTimeout(fallbackTimer);
-        } catch (error) {
-          console.log('Autoplay prevented');
-          setShowFallback(true);
-          clearTimeout(fallbackTimer);
-        }
-      };
+    // Event listeners для видео
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('error', handleError);
+    video.addEventListener('loadstart', handleLoadStart);
 
-      const handleCanPlay = () => {
-        playVideo();
-      };
+    // Event listeners для страницы
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-      const handleError = () => {
-        setShowFallback(true);
-        clearTimeout(fallbackTimer);
-      };
-
-      const handleInteraction = () => {
-        if (video.paused && !showFallback) {
-          playVideo();
-        }
-      };
-
-      video.addEventListener('canplaythrough', handleCanPlay);
-      video.addEventListener('error', handleError);
-      document.addEventListener('touchstart', handleInteraction, { once: true });
-      document.addEventListener('click', handleInteraction, { once: true });
-
-      return () => {
-        clearTimeout(fallbackTimer);
-        if (video) {
-          video.removeEventListener('canplaythrough', handleCanPlay);
-          video.removeEventListener('error', handleError);
-        }
-        document.removeEventListener('touchstart', handleInteraction);
-        document.removeEventListener('click', handleInteraction);
-      };
+    // Попытка немедленного воспроизведения
+    if (video.readyState >= 2) {
+      handleLoadedData();
     }
-  }, [showFallback]);
+
+    return () => {
+      clearTimeout(fallbackTimer);
+      if (video) {
+        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('error', handleError);
+        video.removeEventListener('loadstart', handleLoadStart);
+      }
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [playVideo, handleVisibilityChange, handleScroll, videoLoaded]);
 
   return (
     <section className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] h-[90vh] sm:h-[85vh] md:h-[95vh] lg:h-[95vh] xl:h-[95vh]">
@@ -84,7 +130,7 @@ const HeroSection = () => {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           className="w-full h-full md:hidden block object-cover"
           draggable={false}
           style={{ 
