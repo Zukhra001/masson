@@ -23,30 +23,49 @@ export default function MasonicSection() {
   const t = translations[lang];
 
   return (
-    <main className="relative w-full min-h-[60vh] sm:min-h-[70vh] md:min-h-screen text-white overflow-hidden">
+    <section 
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] md:min-h-screen text-white overflow-hidden"
+      aria-labelledby="masonic-section-title"
+    >
       <div className="absolute inset-0">
         <Image
           src="/bg.jpg"
-          alt="Фоновое изображение"
+          alt="Масонский храм с колоннами"
           fill
-          className="object-cover object-center z-0 transition-all duration-500 ease-in-out"
+          className="object-cover object-center z-0"
           style={{ filter: 'brightness(1.1)' }}
-          priority
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 100vw"
+          priority={false}
+          loading="lazy"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+          quality={80}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         />
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black to-transparent"></div>
+        <div 
+          className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black to-transparent"
+          aria-hidden="true"
+        />
       </div>
+      
       <div className="relative z-20 flex items-end justify-center min-h-[60vh] sm:min-h-[70vh] md:min-h-screen px-4 sm:px-6 lg:px-8 pb-20">
         <div className="text-center max-w-3xl mx-auto relative">
-          <div className="absolute inset-2 -mx-20 sm:-mx-70 bg-black/78 z-0 rounded-md"></div>
+          <div 
+            className="absolute inset-2 -mx-20 sm:-mx-70 bg-black/78 z-0 rounded-md"
+            aria-hidden="true"
+          />
           <div className="relative z-10 p-6">
-            <h1 className="text-3xl md:text-5xl font-medium mb-4">{t.title}</h1>
-            <p className="text-xs md:text-base leading-relaxed text-gray-400">
+            <h2 
+              id="masonic-section-title"
+              className="text-3xl md:text-5xl font-medium mb-4"
+            >
+              {t.title}
+            </h2>
+            <p className="text-xs md:text-base leading-relaxed text-gray-300">
               {t.description}
             </p>
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

@@ -62,11 +62,14 @@ const ValuesSection = () => {
   const t = React.useMemo(() => translations[lang], [lang]);
 
   return (
-    <section className="relative bg-black py-20 px-6 z-30 overflow-hidden">
+    <section 
+      className="relative bg-black py-20 px-6 z-30 overflow-hidden"
+      aria-labelledby="values-title"
+    >
       <div className="absolute inset-0 z-0">
         <Image
           src="/fon.jpg"
-          alt="Background rays"
+          alt=""
           fill
           className="object-cover object-center"
           style={{
@@ -74,127 +77,65 @@ const ValuesSection = () => {
             transform: 'scale(2.9)',
           }}
           sizes="100vw"
-          quality={100}
+          quality={75}
           loading="lazy"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         />
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <h2 className="text-white text-4xl md:text-5xl font-medium text-center mb-16">
-          {t.title}
-        </h2>
+        <header className="text-center mb-16">
+          <h2 id="values-title" className="text-white text-4xl md:text-5xl font-medium">
+            {t.title}
+          </h2>
+        </header>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <div
-            className="relative w-[344px] h-[259px] rounded overflow-hidden mx-auto flex flex-col justify-end"
-            style={{
-              background: 'linear-gradient(112.72deg, #0B1313 7.95%, #091622 94.16%)'
-            }}
-          >
-            <Image
-              src="/light-icon.png"
-              alt={t.values[0].title}
-              width={750}
-              height={760}
-              className="absolute object-cover object-center z-10"
+          {t.values.map((value, index) => (
+            <article
+              key={index}
+              className="relative w-[344px] h-[259px] rounded overflow-hidden mx-auto flex flex-col justify-end"
               style={{
-                top: '-325px',
-                left: '75px',
-                transform: 'scale(1.3)',
-                filter: 'brightness(0.7)',
-                maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                width: 'auto',
-                height: 'auto'
+                background: 'linear-gradient(112.72deg, #0B1313 7.95%, #091622 94.16%)'
               }}
-              quality={100}
-              loading="lazy"
-            />
-            <div className="relative z-20 h-full flex items-end">
-              <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[285px]">
-                <h3 className="text-white text-xl font-medium leading-none">
-                  {t.values[0].title}
-                </h3>
-                <p className="text-gray-400 text-[15px] font-light leading-[1.2] font-sans">
-                  {t.values[0].description}
-                </p>
+            >
+              <div className="absolute inset-0 z-10">
+                <Image
+                  src={index === 0 ? "/light-icon.png" : index === 1 ? "/ethics-icon.png" : "/unity-icon.png"}
+                  alt=""
+                  width={index === 0 ? 750 : index === 1 ? 450 : 700}
+                  height={index === 0 ? 760 : 259}
+                  className="absolute object-cover object-center"
+                  style={{
+                    top: index === 0 ? '-325px' : index === 1 ? '21px' : '25px',
+                    left: index === 0 ? '75px' : index === 1 ? '0px' : '45px',
+                    transform: index === 0 ? 'scale(1.3)' : index === 1 ? 'scale(1)' : 'scale(1.4)',
+                    filter: 'brightness(0.7)',
+                    maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+                    width: 'auto',
+                    height: 'auto'
+                  }}
+                  quality={75}
+                  loading="lazy"
+                  aria-hidden="true"
+                />
               </div>
-            </div>
-          </div>
-          
-          <div
-            className="relative w-[344px] h-[259px] rounded overflow-hidden mx-auto flex flex-col justify-end"
-            style={{
-              background: 'linear-gradient(112.72deg, #0B1313 7.95%, #091622 94.16%)'
-            }}
-          >
-            <Image
-              src="/ethics-icon.png"
-              alt={t.values[1].title}
-              width={450}
-              height={259}
-              className="absolute object-cover z-10"
-              style={{
-                top: '21px',
-                left: '0px',
-                transform: 'scale(1)',
-                filter: 'brightness(0.7)',
-                maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                width: 'auto',
-                height: 'auto'
-              }}
-              quality={100}
-              loading="lazy"
-            />
-            <div className="relative z-20 h-full flex items-end">
-              <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[385px]">
-                <h3 className="text-white text-xl font-medium leading-none">
-                  {t.values[1].title}
-                </h3>
-                <p className="text-gray-400 text-[15px] font-light leading-[1.2] font-sans">
-                  {t.values[1].description}
-                </p>
+              
+              <div className="relative z-20 h-full flex items-end">
+                <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[285px]">
+                  <h3 className="text-white text-xl font-medium leading-none">
+                    {value.title}
+                  </h3>
+                  <p className="text-gray-300 text-[15px] font-light leading-[1.2] font-sans">
+                    {value.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
-          
-          <div
-            className="relative w-[344px] h-[259px] rounded overflow-hidden mx-auto flex flex-col justify-end"
-            style={{
-              background: 'linear-gradient(112.72deg, #0B1313 7.95%, #091622 94.16%)'
-            }}
-          >
-            <Image
-              src="/unity-icon.png"
-              alt={t.values[2].title}
-              width={700}
-              height={500}
-              className="absolute object-cover object-center z-10"
-              style={{
-                left: '45px',
-                top: '25px',
-                transform: 'scale(1.4)',
-                filter: 'brightness(0.7)',
-                maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-                width: 'auto',
-                height: 'auto'
-              }}
-              quality={100}
-              loading="lazy"
-            />
-            <div className="relative z-20 h-full flex items-end">
-              <div className="pl-[20px] pr-6 pb-6 flex flex-col gap-[12px] h-[125px] w-[385px]">
-                <h3 className="text-white text-xl font-medium leading-none">
-                  {t.values[2].title}
-                </h3>
-                <p className="text-gray-400 text-[15px] font-light leading-[1.2] font-sans">
-                  {t.values[2].description}
-                </p>
-              </div>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

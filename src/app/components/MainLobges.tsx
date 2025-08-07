@@ -109,43 +109,38 @@ const texts = {
 };
 
 const lodges = [
-  {
-    img: "/cards/cards1.png",
-  },
-  {
-    img: "/cards/cards2.png",
-  },
-  {
-    img: "/cards/cards3.jpg",
-  },
-  {
-    img: "/cards/cards4.jpg",
-  },
-  {
-    img: "/cards/cards5.png",
-  },
+  { img: "/cards/cards1.png" },
+  { img: "/cards/cards2.png" },
+  { img: "/cards/cards3.jpg" },
+  { img: "/cards/cards4.jpg" },
+  { img: "/cards/cards5.png" },
 ];
 
-export default function MainLobges() {
+export default function MainLodges() {
   const { lang } = useLanguage();
   const currentTexts = texts[lang];
 
   return (
     <div className="relative">
-      <section className="relative w-full h-[480px] sm:h-[600px] md:h-[700px] lg:h-screen bg-blue-700 text-white overflow-hidden rounded-[20px] sm:rounded-[40px] lg:rounded-[80px]">
+      <section 
+        className="relative w-full h-[480px] sm:h-[600px] md:h-[700px] lg:h-screen bg-blue-700 text-white overflow-hidden rounded-[20px] sm:rounded-[40px] lg:rounded-[80px]"
+        aria-labelledby="lodges-main-title"
+      >
         <div className="absolute inset-0 z-0">
           <img
             src="/sobr2.jpg"
-            alt="Freemasons meeting"
+            alt="Масонское собрание"
             className="w-full h-full object-cover object-center filter grayscale brightness-125 contrast-75"
+            loading="lazy"
+            decoding="async"
           />
           <div
             className="absolute inset-0 blur-sm opacity-40"
             style={{
               background: `linear-gradient(to bottom, rgba(13, 21, 40, 0.7), rgba(0, 0, 0, 0.7))`,
             }}
+            aria-hidden="true"
           />
-
           <div
             className="absolute top-0 left-0 w-full h-[30%] pointer-events-none opacity-50 blur-xl"
             style={{
@@ -166,13 +161,18 @@ export default function MainLobges() {
               `,
               backgroundBlendMode: 'multiply',
             }}
+            aria-hidden="true"
           />
-          <div className="absolute h-[10%] inset-0 bg-gradient-to-b from-black/100 via-black/50 to-transparent rounded-[20px] sm:rounded-[40px] lg:rounded-[80px]" />
+          <div 
+            className="absolute h-[10%] inset-0 bg-gradient-to-b from-black/100 via-black/50 to-transparent rounded-[20px] sm:rounded-[40px] lg:rounded-[80px]"
+            aria-hidden="true"
+          />
         </div>
 
         <div className="relative z-10 flex items-start justify-center h-full py-20 sm:py-32 lg:py-40">
           <div className="text-center px-4">
             <h1
+              id="lodges-main-title"
               className="text-4xl sm:text-6xl md:text-8xl lg:text-[120px] font-bold tracking-tight leading-[0.9] whitespace-pre-line"
               style={{
                 color: "#F4B860",
@@ -191,10 +191,10 @@ export default function MainLobges() {
           background: `linear-gradient(to bottom, rgba(17, 24, 39, 0.7), rgba(0, 0, 0, 0.7))`,
         }}
       >
-        <div className="absolute inset-0 z-0  ">
+        <div className="absolute inset-0 z-0">
           <img
             src="/sobr4.jpg"
-            alt="Background"
+            alt=""
             className="w-full h-full object-cover filter blur-xl brightness-200 opacity-20"
             style={{
               transform: "scaleX(-1)",
@@ -205,17 +205,21 @@ export default function MainLobges() {
               WebkitMaskRepeat: "no-repeat",
               maskRepeat: "no-repeat",
             }}
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
           />
           <div
             className="absolute inset-0 blur-sm opacity-10"
             style={{
               background: `linear-gradient(to bottom, rgba(13, 21, 40, 0.7), rgba(0, 0, 0, 0.7))`,
             }}
+            aria-hidden="true"
           />
         </div>
 
         <div className="relative z-10">
-          <div
+          <header
             className="rounded-[16px] sm:rounded-[20px] md:rounded-[24px] px-4 sm:px-6 md:px-8 py-4 sm:py-6 shadow-lg flex flex-col sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 mx-auto max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl"
             style={{
               background: "radial-gradient(circle at center bottom, #0A141A 0%, #2A251C 50%, #1A1611 100%)",
@@ -225,22 +229,25 @@ export default function MainLobges() {
               src="/logo.png"
               alt={currentTexts.grandLodgeTitle}
               className="rounded-full w-16 h-10 sm:w-24 md:w-32 sm:h-20 lg:w-40 lg:h-24 xl:w-72 xl:h-44"
+              loading="lazy"
+              decoding="async"
             />
             <div className="text-center sm:text-left">
-              <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-white">
+              <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-white">
                 {currentTexts.grandLodgeTitle}
-              </h3>
+              </h2>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-400">
                 {currentTexts.foundedLabel}
               </p>
             </div>
-          </div>
+          </header>
           <svg
             className="absolute top-32 sm:top-40 md:top-48 lg:top-52 xl:top-56 left-1/2 transform -translate-x-1/2 z-10 hidden lg:block"
             width="min(100vw, 1528px)"
             height="160"
             style={{ pointerEvents: "none" }}
             viewBox="0 0 1528 160"
+            aria-hidden="true"
           >
             <defs>
               <style>
@@ -264,7 +271,7 @@ export default function MainLobges() {
             <div className="hidden xl:block w-full max-w-7xl">
               <div className="flex justify-between gap-3">
                 {lodges.slice(0, 5).map((lodge, idx) => (
-                  <div
+                  <article
                     key={idx}
                     className="rounded-[24px] px-4 py-6 shadow-lg flex flex-col items-center text-sm flex-1 max-w-xs h-[414px]"
                     style={{
@@ -277,12 +284,14 @@ export default function MainLobges() {
                         src={lodge.img}
                         alt={currentTexts.lodges[idx].title}
                         className="object-contain max-w-[113px] max-h-[180px]"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between text-center">
-                      <h4 className="text-[15px] font-semibold text-white leading-tight px-2">
+                      <h3 className="text-[15px] font-semibold text-white leading-tight px-2">
                         {currentTexts.lodges[idx].title}
-                      </h4>
+                      </h3>
                       <div className="mt-auto space-y-1">
                         <p className="text-[12px] text-gray-400 mb-2">
                           {currentTexts.dateFoundedLabel} {currentTexts.lodges[idx].founded}
@@ -295,13 +304,13 @@ export default function MainLobges() {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
             <div className="hidden md:grid xl:hidden grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
               {lodges.slice(0, 5).map((lodge, idx) => (
-                <div
+                <article
                   key={idx}
                   className="rounded-[20px] px-4 py-5 shadow-lg flex flex-col items-center text-sm h-[350px]"
                   style={{
@@ -314,12 +323,14 @@ export default function MainLobges() {
                       src={lodge.img}
                       alt={currentTexts.lodges[idx].title}
                       className="object-contain max-w-[90px] max-h-[140px]"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="flex-1 flex flex-col justify-between text-center">
-                    <h4 className="text-[16px] font-semibold text-white leading-tight px-2 mb-4">
+                    <h3 className="text-[16px] font-semibold text-white leading-tight px-2 mb-4">
                       {currentTexts.lodges[idx].title}
-                    </h4>
+                    </h3>
                     <div className="mt-auto space-y-1">
                       <p className="text-[14px] text-gray-400 mb-2">
                         {currentTexts.dateFoundedLabel} {currentTexts.lodges[idx].founded}
@@ -332,12 +343,12 @@ export default function MainLobges() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
             <div className="grid md:hidden grid-cols-1 gap-4 max-w-sm mx-auto">
               {lodges.slice(0, 5).map((lodge, idx) => (
-                <div
+                <article
                   key={idx}
                   className="rounded-[16px] px-4 py-4 shadow-lg flex items-center gap-4 text-sm min-h-[120px]"
                   style={{
@@ -350,12 +361,14 @@ export default function MainLobges() {
                       src={lodge.img}
                       alt={currentTexts.lodges[idx].title}
                       className="object-contain max-w-[50px] max-h-[80px]"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="flex-1 text-left">
-                    <h4 className="text-xs font-semibold text-white leading-tight mb-3">
+                    <h3 className="text-xs font-semibold text-white leading-tight mb-3">
                       {currentTexts.lodges[idx].title}
-                    </h4>
+                    </h3>
                     <div className="space-y-1">
                       <p className="text-[10px] text-gray-400">
                         {currentTexts.dateFoundedLabel} {currentTexts.lodges[idx].founded}
@@ -365,7 +378,7 @@ export default function MainLobges() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>

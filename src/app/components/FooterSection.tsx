@@ -62,108 +62,158 @@ const FooterSection = () => {
   const t = React.useMemo(() => translations[lang], [lang]);
 
   return (
-    <section 
+    <footer 
       className="text-gray-400 py-6 px-3 sm:py-12 sm:px-6 md:py-20 md:px-8"
       style={{
         background: 'linear-gradient(to right, #0B1313, #091622)'
       }}
+      role="contentinfo"
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-10 lg:gap-16 place-items-center lg:place-items-start">
-
           <div className="flex justify-center lg:justify-start w-full">
             <div className="w-28 h-12 sm:w-44 sm:h-18 relative">
               <Image
                 src="/logo.png"
-                alt="Логотип"
+                alt="Логотип Великой Ложи Казахстана"
                 fill
-                sizes="(max-width: 640px) 6rem, (max-width: 768px) 8rem, (max-width: 1024px) 12rem, 18rem"
+                sizes="(max-width: 640px) 7rem, (max-width: 768px) 11rem, 11rem"
                 className="object-contain"
                 loading="lazy"
+                quality={85}
               />
             </div>
           </div>
-
-          <div className="w-full text-center lg:text-left">
-            <h3 className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">{t.structure}</h3>
+          <nav className="w-full text-center lg:text-left" aria-labelledby="structure-heading">
+            <h3 id="structure-heading" className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">
+              {t.structure}
+            </h3>
             <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm leading-relaxed">
               <li>
-                <a href="https://masons.kz/goals" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/goals" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.mission}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/structure" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/structure" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.structureVLK}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/orgstructura" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/orgstructura" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.council}
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="#documents" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                >
                   {t.documents}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/recognitions" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/recognitions" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.recognitions}
                 </a>
               </li>
             </ul>
-          </div>
-
-          <div className="w-full text-center lg:text-left">
-            <h3 className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">{t.library}</h3>
+          </nav>
+          <nav className="w-full text-center lg:text-left" aria-labelledby="library-heading">
+            <h3 id="library-heading" className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">
+              {t.library}
+            </h3>
             <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm leading-relaxed">
               <li>
-                <a href="https://masons.kz/constitution" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/constitution" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.constitution}
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="#media" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                >
                   {t.media}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/dictionary" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/dictionary" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.dictionary}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/books" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/books" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.books}
                 </a>
               </li>
             </ul>
-          </div>
-
-          <div className="w-full text-center lg:text-left">
-            <h3 className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">{t.candidate}</h3>
+          </nav>
+          <nav className="w-full text-center lg:text-left" aria-labelledby="candidate-heading">
+            <h3 id="candidate-heading" className="text-white text-sm sm:text-lg font-bold mb-2 sm:mb-4">
+              {t.candidate}
+            </h3>
             <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm leading-relaxed">
               <li>
-                <a href="https://masons.kz/faq" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/faq" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.faq}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/preparing" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/preparing" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.preparing}
                 </a>
               </li>
               <li>
-                <a href="https://masons.kz/candidateform" className="hover:text-white transition-colors duration-200">
+                <a 
+                  href="https://masons.kz/candidateform" 
+                  className="hover:text-white transition-colors duration-200 focus:text-white focus:outline-none focus:underline"
+                  rel="noopener"
+                >
                   {t.form}
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
         </div>
       </div>
-    </section>
+    </footer>
   );
 };
 

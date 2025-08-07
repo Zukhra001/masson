@@ -1,2 +1,11 @@
 @import "tailwindcss";
 body {background: linear-gradient(to bottom, #0B1313, #091622);}
+@layer base {
+    html { font-display: swap; }
+    * { box-sizing: border-box; }
+    body { 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }

@@ -29,22 +29,45 @@ export default function Info() {
   const t = React.useMemo(() => translations[lang], [lang]);
 
   return (
-    <section className="w-full relative flex items-end min-h-[600px] md:aspect-[16/12] overflow-hidden rounded-[40px] sm:rounded-[80px]">
+    <section 
+      className="w-full relative flex items-end min-h-[600px] md:h-screen overflow-hidden rounded-[40px] sm:rounded-[80px]"
+      aria-labelledby="grand-master-title"
+    >
       <div className="absolute inset-0 z-0">
         <Image
           src="/master1.png"
-          alt="Master"
+          alt={`${t.name} - ${t.subtitle}`}
           fill
-          priority
+          priority={false}
+          loading="lazy"
           className="object-cover w-full h-full"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 80vw"
+          quality={85}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/40 to-transparent rounded-[40px] sm:rounded-[80px]" />
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/40 to-transparent rounded-[40px] sm:rounded-[80px]" 
+          aria-hidden="true"
+        />
       </div>
+      
       <div className="relative z-10 w-full px-4 pb-10 text-center text-white md:pb-20">
-        <p className="text-sm md:text-base mb-2">{t.subtitle}</p>
-        <h2 className="text-3xl md:text-5xl font-bold">{t.name}</h2>
-        <p className="mt-4 max-w-2xl mx-auto text-sm md:text-base">{t.description}</p>
+        <header>
+          <p className="text-sm md:text-base mb-2 text-gray-200">
+            {t.subtitle}
+          </p>
+          <h1 
+            id="grand-master-title"
+            className="text-3xl md:text-5xl font-bold mb-4"
+          >
+            {t.name}
+          </h1>
+        </header>
+        
+        <blockquote className="mt-4 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-gray-100">
+          {t.description}
+        </blockquote>
       </div>
     </section>
   );
