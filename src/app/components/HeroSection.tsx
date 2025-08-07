@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import "@/app/globals.css";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -26,60 +26,6 @@ const texts = {
 
 const HeroSection = () => {
   const { lang } = useLanguage();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [showFallback, setShowFallback] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      const fallbackTimer = setTimeout(() => {
-        if (video.paused) {
-          setShowFallback(true);
-        }
-      }, 3000);
-
-      const playVideo = async () => {
-        try {
-          await video.play();
-          clearTimeout(fallbackTimer);
-        } catch (error) {
-          console.log('Autoplay prevented');
-          setShowFallback(true);
-          clearTimeout(fallbackTimer);
-        }
-      };
-
-      const handleCanPlay = () => {
-        playVideo();
-      };
-
-      const handleError = () => {
-        setShowFallback(true);
-        clearTimeout(fallbackTimer);
-      };
-
-      const handleInteraction = () => {
-        if (video.paused && !showFallback) {
-          playVideo();
-        }
-      };
-
-      video.addEventListener('canplaythrough', handleCanPlay);
-      video.addEventListener('error', handleError);
-      document.addEventListener('touchstart', handleInteraction, { once: true });
-      document.addEventListener('click', handleInteraction, { once: true });
-
-      return () => {
-        clearTimeout(fallbackTimer);
-        if (video) {
-          video.removeEventListener('canplaythrough', handleCanPlay);
-          video.removeEventListener('error', handleError);
-        }
-        document.removeEventListener('touchstart', handleInteraction);
-        document.removeEventListener('click', handleInteraction);
-      };
-    }
-  }, [showFallback]);
 
   return (
     <section 
@@ -88,42 +34,20 @@ const HeroSection = () => {
       role="banner"
       aria-labelledby="hero-title"
     >
-      {!showFallback && (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full md:hidden block object-cover"
-          draggable={false}
-          style={{ 
-            objectFit: 'cover'
-          }}
-          aria-hidden="true"
-        >
-          <source src="/massongif.mp4" type="video/mp4" />
-          <track kind="captions" srcLang={lang} label={
-            lang === 'ru' ? 'Русские субтитры' : 
-            lang === 'en' ? 'English captions' : 
-            'Қазақша субтитрлер'
-          } />
-        </video>
-      )}
-      {showFallback && (
-        <img 
-          src="/masson.gif" 
-          alt={
-            lang === 'ru' ? 'Масонская церемония - символы и ритуалы Великой Ложи Казахстана' :
-            lang === 'en' ? 'Masonic ceremony - symbols and rituals of Grand Lodge of Kazakhstan' :
-            'Масондық рәсім - Қазақстанның Ұлы Ложасының символдары мен ритуалдары'
-          }
-          className="w-full h-full md:hidden block object-cover" 
-          draggable={false}
-          loading="eager"
-        />
-      )}
+      {/* GIF для мобильных устройств */}
+      <img 
+        src="/masson.gif" 
+        alt={
+          lang === 'ru' ? 'Масонская церемония - символы и ритуалы Великой Ложи Казахстана' :
+          lang === 'en' ? 'Masonic ceremony - symbols and rituals of Grand Lodge of Kazakhstan' :
+          'Масондық рәсім - Қазақстанның Ұлы Ложасының символдары мен ритуалдары'
+        }
+        className="w-full h-full md:hidden block object-cover" 
+        draggable={false}
+        loading="eager"
+      />
+      
+      {/* GIF для десктопа (остается без изменений) */}
       <img 
         src="/masson.gif" 
         alt={
@@ -135,6 +59,7 @@ const HeroSection = () => {
         draggable={false}
         loading="eager"
       />
+      
       <div className="absolute inset-0 bg-black/40 z-10" />
       <div className="absolute inset-0 z-20 flex flex-col justify-end md:justify-center lg:justify-end px-4 md:px-12 pb-12 sm:pb-20 md:pb-16 lg:pb-20">
         <div className="flex flex-col md:flex-row w-full items-start md:items-end justify-between gap-4 md:gap-8">
@@ -161,6 +86,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
