@@ -27,7 +27,7 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[80px] xl:mt-[95px] h-[90vh] sm:h-[85vh] md:h-[85vh] lg:h-[90vh] xl:h-[90vh]"
+      className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[110px] xl:mt-[130px] h-[90vh] sm:h-[85vh] md:h-[85vh] lg:h-[90vh] xl:h-[90vh]"
       aria-labelledby="hero-title"
     >
       <img 

@@ -38,8 +38,15 @@ const navLinks = [
   },
 ];
 
+const languages = [
+  { code: "ru", label: "Рус" },
+  { code: "en", label: "Eng" },
+  { code: "kz", label: "Қаз" },
+];
+
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const { lang, setLang } = useLanguage();
   const navLinksWithoutLogo = navLinks.filter((l) => !l.isLogo);
 
@@ -53,15 +60,80 @@ const Header = () => {
 
   const handleLanguageChange = useCallback((langCode: "ru" | "en" | "kz") => {
     setLang(langCode);
+    setLangDropdownOpen(false);
   }, [setLang]);
 
+  const toggleLangDropdown = useCallback(() => {
+    setLangDropdownOpen(prev => !prev);
+  }, []);
+
+  const closeLangDropdown = useCallback(() => {
+    setLangDropdownOpen(false);
+  }, []);
+
   return (
-    <header className="w-full fixed top-0 left-0 z-50 h-[70px] sm:h-[75px] md:h-[70px] lg:h-[80px] xl:h-[95px] flex items-center bg-[linear-gradient(to_right,rgba(11,19,19,0.6),rgba(9,22,34,0.6))] bg-[length:100%_100%] bg-no-repeat backdrop-blur-xl sm:backdrop-blur-[75px]">
+    <header className="w-full fixed top-0 left-0 z-50 h-[70px] sm:h-[75px] md:h-[70px] lg:h-[110px] xl:h-[130px] flex flex-col items-center bg-[linear-gradient(to_right,rgba(11,19,19,0.6),rgba(9,22,34,0.6))] bg-[length:100%_100%] bg-no-repeat backdrop-blur-xl sm:backdrop-blur-[75px]">
       <nav 
-        className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-full"
+        className="w-full max-w-[1920px] mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-12 xl:px-24 relative h-[70px] sm:h-[75px] md:h-[70px] lg:h-[85px] xl:h-[100px] flex-1 lg:mt-4 xl:mt-6"
         role="navigation"
         aria-label="Главная навигация"
       >
+        <div className="hidden lg:flex absolute top-1/2 right-6 xl:right-12 transform -translate-y-1/2 z-10">
+          <div className="relative">
+            <button
+              onClick={toggleLangDropdown}
+              className="flex items-center gap-2 bg-black/30 backdrop-blur-sm rounded-xl px-3 py-2 border border-[#1e3a8a]/20 text-white/90 hover:text-[#1e3a8a] hover:border-[#1e3a8a]/40 transition-all duration-300"
+              type="button"
+              aria-label="Выбрать язык"
+              aria-expanded={langDropdownOpen}
+              aria-haspopup="true"
+            >
+              <span className="text-sm font-medium">
+                {lang === 'ru' ? 'Рус' : lang === 'en' ? 'Eng' : 'Қаз'}
+              </span>
+              <svg 
+                className={`w-4 h-4 transition-transform duration-300 ${langDropdownOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {langDropdownOpen && (
+              <>
+                <div 
+                  className="fixed inset-0 z-10" 
+                  onClick={closeLangDropdown}
+                  aria-hidden="true"
+                />
+                <div 
+                  className="absolute right-0 top-full mt-2 bg-black/80 backdrop-blur-md rounded-xl border border-[#1e3a8a]/20 shadow-lg shadow-black/50 min-w-[120px] z-20"
+                  role="menu"
+                  aria-orientation="vertical"
+                >
+                  {languages.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => handleLanguageChange(l.code as "ru" | "en" | "kz")}
+                      className={`w-full text-left px-4 py-2 text-sm transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
+                        lang === l.code
+                          ? 'bg-[#1e3a8a] text-white font-medium'
+                          : 'text-white/80 hover:text-[#1e3a8a] hover:bg-white/10'
+                      }`}
+                      role="menuitem"
+                      type="button"
+                    >
+                      {l.code === 'ru' ? 'Русский' : l.code === 'en' ? 'English' : 'Қазақша'}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
         <div className="lg:hidden w-full flex flex-col items-center justify-center relative">
           <div className="absolute left-0 top-1/2 transform -translate-y-1/2">
             <div className="flex flex-col text-left">
@@ -116,44 +188,57 @@ const Header = () => {
             </div>
           </button>
         </div>
-        <div className="hidden lg:flex w-full justify-center items-center">
-          <div className="flex flex-wrap gap-2 lg:gap-4 xl:gap-8 2xl:gap-10 items-center justify-center w-full">
-            {navLinks.map((link, idx) =>
-              link.isLogo ? (
-                <div key="logo" className="flex items-center justify-center mx-2 xl:mx-4">
-                  <Image
-                    src="/logo.png"
-                    alt="Логотип Великой Ложи Казахстана"
-                    width={75}
-                    height={48}
-                    className="xl:w-[90px] xl:h-[57px]"
-                    priority
-                    quality={90}
-                  />
-                </div>
-              ) : link.isButton ? (
-                <div key={idx} className="flex-shrink-0">
-                  <button 
-                    className="px-3 py-1.5 lg:px-4 lg:py-2 xl:px-6 xl:py-2 border border-[#C1C9CC] rounded-2xl xl:rounded-3xl text-[#C1C9CC] text-xs lg:text-sm xl:text-base 2xl:text-lg font-light hover:bg-[#C1C9CC] hover:text-black transition-all duration-200 text-center whitespace-nowrap"
-                    type="button"
-                  >
-                    {link.label[lang]}
-                  </button>
-                </div>
-              ) : (
-                <a
-                  key={idx}
-                  href={link.href}
-                  className={`text-[#EAF8FF] font-light text-xs lg:text-sm xl:text-base 2xl:text-lg px-1 lg:px-2 py-1 whitespace-nowrap ${
-                    link.active ? "border-b-2 border-white" : "opacity-40 hover:opacity-70"
-                  } transition-all duration-200`}
+
+        <div className="hidden lg:flex w-full items-center">
+          <div className="flex-1 flex items-center justify-end gap-2 lg:gap-4 xl:gap-8 2xl:gap-10 pr-2 xl:pr-4">
+            {navLinks.slice(0, 3).map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                className={`text-[#EAF8FF] font-light text-xs lg:text-sm xl:text-base 2xl:text-lg px-1 lg:px-2 py-1 whitespace-nowrap ${
+                  link.active ? "border-b-2 border-white" : "opacity-40 hover:opacity-70"
+                } transition-all duration-200`}
+              >
+                {link.label?.[lang]}
+              </a>
+            ))}
+          </div>
+          <div className="flex items-center justify-center mx-2 xl:mx-4">
+            <Image
+              src="/logo.png"
+              alt="Логотип Великой Ложи Казахстана"
+              width={75}
+              height={48}
+              className="xl:w-[90px] xl:h-[57px]"
+              priority
+              quality={90}
+            />
+          </div>
+          <div className="flex-1 flex items-center justify-start gap-2 lg:gap-4 xl:gap-8 2xl:gap-10 pl-2 xl:pl-4">
+            {navLinks.slice(4, 6).map((link, idx) => (
+              <a
+                key={idx + 4}
+                href={link.href}
+                className={`text-[#EAF8FF] font-light text-xs lg:text-sm xl:text-base 2xl:text-lg px-1 lg:px-2 py-1 whitespace-nowrap ${
+                  link.active ? "border-b-2 border-white" : "opacity-40 hover:opacity-70"
+                } transition-all duration-200`}
+              >
+                {link.label?.[lang]}
+              </a>
+            ))}
+            {navLinks.find(link => link.isButton) && (
+              <div className="flex-shrink-0 ml-2 lg:ml-4">
+                <button 
+                  className="px-3 py-1.5 lg:px-4 lg:py-2 xl:px-6 xl:py-2 border border-[#C1C9CC] rounded-2xl xl:rounded-3xl text-[#C1C9CC] text-xs lg:text-sm xl:text-base 2xl:text-lg font-light hover:bg-[#C1C9CC] hover:text-black transition-all duration-200 text-center whitespace-nowrap"
+                  type="button"
                 >
-                  {link.label?.[lang]}
-                </a>
-              )
+                  {navLinks.find(link => link.isButton)?.label?.[lang]}
+                </button>
+              </div>
             )}
           </div>
         </div>
+
         <div
           className={`fixed inset-0 w-full h-screen bg-[#0a0a1a] z-40 transform transition-all duration-500 ease-in-out lg:hidden overflow-hidden ${
             open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
@@ -277,6 +362,11 @@ const Header = () => {
           />
         )}
       </nav>
+      <div className="hidden lg:flex w-full max-w-[1920px] mx-auto justify-center pb-3 xl:pb-4">
+        <span className="text-gray-400 text-sm xl:text-base font-light tracking-wider">
+          {lang === 'ru' ? 'Великая Ложа Казахстана' : lang === 'en' ? 'Grand Lodge of Kazakhstan' : 'Қазақстанның Ұлы Ложасы'}
+        </span>
+      </div>
     </header>
   );
 };
