@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
 
@@ -49,6 +49,7 @@ const Header = () => {
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const { lang, setLang } = useLanguage();
   const navLinksWithoutLogo = navLinks.filter((l) => !l.isLogo);
+  const langDropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = useCallback(() => {
     setOpen(prev => !prev);
@@ -71,6 +72,23 @@ const Header = () => {
     setLangDropdownOpen(false);
   }, []);
 
+  // Добавляем обработчик кликов вне dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target as Node)) {
+        setLangDropdownOpen(false);
+      }
+    };
+
+    if (langDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [langDropdownOpen]);
+
   return (
     <header className="w-full fixed top-0 left-0 z-50 h-[70px] sm:h-[75px] md:h-[70px] lg:h-[110px] xl:h-[130px] flex flex-col items-center bg-[linear-gradient(to_right,rgba(11,19,19,0.6),rgba(9,22,34,0.6))] bg-[length:100%_100%] bg-no-repeat backdrop-blur-xl sm:backdrop-blur-[75px]">
       <nav 
@@ -79,7 +97,7 @@ const Header = () => {
         aria-label="Главная навигация"
       >
         <div className="hidden lg:flex absolute top-1/2 right-6 xl:right-12 transform -translate-y-1/2 z-10">
-          <div className="relative">
+          <div className="relative" ref={langDropdownRef}>
             <button
               onClick={toggleLangDropdown}
               className="flex items-center gap-2 bg-black/30 backdrop-blur-sm rounded-xl px-3 py-2 border border-[#1e3a8a]/20 text-white/90 hover:text-[#1e3a8a] hover:border-[#1e3a8a]/40 transition-all duration-300"
@@ -102,34 +120,27 @@ const Header = () => {
             </button>
             
             {langDropdownOpen && (
-              <>
-                <div 
-                  className="fixed inset-0 z-10" 
-                  onClick={closeLangDropdown}
-                  aria-hidden="true"
-                />
-                <div 
-                  className="absolute right-0 top-full mt-2 bg-black/80 backdrop-blur-md rounded-xl border border-[#1e3a8a]/20 shadow-lg shadow-black/50 min-w-[120px] z-20"
-                  role="menu"
-                  aria-orientation="vertical"
-                >
-                  {languages.map((l) => (
-                    <button
-                      key={l.code}
-                      onClick={() => handleLanguageChange(l.code as "ru" | "en" | "kz")}
-                      className={`w-full text-left px-4 py-2 text-sm transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
-                        lang === l.code
-                          ? 'bg-[#1e3a8a] text-white font-medium'
-                          : 'text-white/80 hover:text-[#1e3a8a] hover:bg-white/10'
-                      }`}
-                      role="menuitem"
-                      type="button"
-                    >
-                      {l.code === 'ru' ? 'Русский' : l.code === 'en' ? 'English' : 'Қазақша'}
-                    </button>
-                  ))}
-                </div>
-              </>
+              <div 
+                className="absolute right-0 top-full mt-2 bg-black/80 backdrop-blur-md rounded-xl border border-[#1e3a8a]/20 shadow-lg shadow-black/50 min-w-[120px] z-20"
+                role="menu"
+                aria-orientation="vertical"
+              >
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => handleLanguageChange(l.code as "ru" | "en" | "kz")}
+                    className={`w-full text-left px-4 py-2 text-sm transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
+                      lang === l.code
+                        ? 'bg-[#1e3a8a] text-white font-medium'
+                        : 'text-white/80 hover:text-[#1e3a8a] hover:bg-white/10'
+                    }`}
+                    role="menuitem"
+                    type="button"
+                  >
+                    {l.code === 'ru' ? 'Русский' : l.code === 'en' ? 'English' : 'Қазақша'}
+                  </button>
+                ))}
+              </div>
             )}
           </div>
         </div>

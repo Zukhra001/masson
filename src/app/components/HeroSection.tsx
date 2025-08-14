@@ -30,19 +30,21 @@ const HeroSection = () => {
       className="relative w-full mt-[30px] sm:mt-[60px] md:mt-[70px] lg:mt-[110px] xl:mt-[130px] h-[90vh] sm:h-[85vh] md:h-[85vh] lg:h-[90vh] xl:h-[90vh]"
       aria-labelledby="hero-title"
     >
-      <img 
-        src="/masson.gif" 
-        alt="Масоны Казахстана" 
+      <video 
+        src="/Intro.mp4" 
         className="w-full h-full object-cover"
+        style={{ objectPosition: 'center 40%' }}
         draggable={false}
-        loading="eager"
-        decoding="async"
+        autoPlay
+        muted
+        playsInline
+        loop={false}
         onError={(e) => {
-          console.log('GIF loading error, trying fallback');
-          (e.target as HTMLImageElement).src = '/bg.jpg';
+          console.log('Video loading error, trying fallback');
+          (e.target as HTMLVideoElement).src = '/bg.jpg';
         }}
-        onLoad={() => {
-          console.log('GIF loaded successfully');
+        onLoadedData={() => {
+          console.log('Video loaded successfully');
         }}
       />
       <div className="absolute inset-0 bg-black/40 z-10" aria-hidden="true" />
